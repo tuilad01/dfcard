@@ -1,0 +1,40 @@
+<section class="md:flex md:justify-center">
+  <ul class="m-4 md:w-[500px]">
+    <li
+      *ngFor="let group of groups"
+      class="mb-2 flex select-none flex-row justify-between gap-4 rounded-lg bg-slate-300 p-4 hover:bg-slate-400 hover:text-white"
+    >
+      <div>
+        <p class="text-xl font-semibold text-gray-800 mb-2">
+          {{ group.name }} <p-badge [value]="group.count || 0" />
+        </p>
+        <p class="italic text-gray-700 mb-2">{{ group.description }}</p>
+        <p class="text-sm mb-2">Total phrases <p-badge [value]="group.phrases.length" severity="danger"/></p>
+
+        <p class="text-sm" *ngIf="group.forgetting !== 0">Forgetfulness <p-badge [value]="group.forgetting || group.phrases.length" severity="warning"/></p>
+        <p class="text-md bold" *ngIf="group.forgetting === 0">Full memorization</p>
+
+        <p class="mt-4 text-sm text-blue-500">
+          {{ calculateTime(group?.updatedAt) }}
+        </p>
+      </div>
+      <div class="flex gap-1">
+        <p-button
+          [icon]="
+            bookmarks.indexOf(group.id) >= 0 ? 'pi pi-bookmark' : 'pi pi-star'
+          "
+          [rounded]="true"
+          severity="success"
+          (onClick)="bookmark(group.id)"
+        ></p-button>
+
+        <p-button
+          icon="pi pi-play"
+          [rounded]="true"
+          severity="primary"
+          (onClick)="play(group.id)"
+        ></p-button>
+      </div>
+    </li>
+  </ul>
+</section>

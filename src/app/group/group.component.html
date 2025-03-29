@@ -1,0 +1,147 @@
+<!-- <form [formGroup]="form">
+  <input type="text" formControlName="name" placeholder="name" /> <br />
+  <input
+    type="text"
+    formControlName="description"
+    placeholder="description"
+  /><br />
+  <button (click)="handleAdd($event)">Add</button>
+  <button (click)="handleUpdate($event)">Update</button>
+</form> -->
+<p-toast />
+<p-confirmPopup />
+
+<div class="md:flex md:justify-center">
+  <form [formGroup]="form" (submit)="submit($event)" class="md:w-[700px]">
+    <app-panel [name]="selectedGroup ? 'Update group' : 'Add group'">
+      <div class="mb-2">
+        <input
+          pInputText
+          formControlName="name"
+          placeholder="Name..."
+          class="w-full"
+        />
+      </div>
+      <div>
+        <input
+          pInputText
+          formControlName="description"
+          placeholder="Description..."
+          class="w-full"
+        />
+      </div>
+
+      <app-panel name="Phrases">
+        <div class="flex flex-col gap-5">
+          <div class="flex flex-wrap justify-between gap-2">
+            <p-button
+              label="Add phrase"
+              (onClick)="addPhrase()"
+              icon="pi pi-plus"
+            ></p-button>
+            <div>
+              <p-button
+                label="Save"
+                type="submit"
+                class="mr-2"
+                [severity]="selectedGroup ? 'warning' : 'primary'"
+              ></p-button>
+              <p-button
+                label="Cancel"
+                severity="secondary"
+                (onClick)="cancelUpdating()"
+                [hidden]="!selectedGroup"
+              ></p-button>
+            </div>
+          </div>
+          <ng-container formArrayName="phrases">
+            <ng-container
+              *ngFor="let phrases of phrases.controls; let i = index"
+              [formGroupName]="i"
+            >
+              <div
+                class="flex flex-row items-center justify-between gap-2 sm:justify-normal"
+              >
+                <div class="grow">
+                  <div class="mb-2">
+                    <input
+                      pInputText
+                      formControlName="name"
+                      placeholder="Name..."
+                      class="w-full"
+                    />
+                  </div>
+                  <div>
+                    <input
+                      pInputText
+                      formControlName="meaning"
+                      placeholder="Meaning..."
+                      class="w-full"
+                    />
+                  </div>
+                </div>
+                <div class="basis-16">
+                  <p-button
+                    icon="pi pi-trash"
+                    severity="danger"
+                    (onClick)="deletePhrase($event, i)"
+                  ></p-button>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </app-panel>
+    </app-panel>
+  </form>
+</div>
+
+<div>
+  <p-table [value]="groups" [tableStyle]="{ 'min-width': '70rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>#</th>
+        <!--<th>Id</th>-->
+        <th>Name</th>
+        <th>Description</th>
+        <th>Phrases</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-group let-i="rowIndex">
+      <tr class="cursor-pointer hover:bg-gray-200" (click)="selectRecord(group)">
+        <td>{{ i + 1 }}</td>
+        <!--<td>{{ group.id }}</td>-->
+        <td>{{ group.name }}</td>
+        <td>{{ group.description }}</td>
+        <td>{{ group.phrases.length }}</td>
+        <td class="flex gap-2">
+          <p-button
+            icon="pi pi-trash"
+            severity="danger"
+            (onClick)="deleteRecord($event, group)"
+          ></p-button>
+          <p-button
+            icon="pi pi-pencil"
+            severity="warning"
+            (onClick)="selectRecord(group)"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<!-- <ul>
+  <li *ngFor="let group of groups">
+    {{ group.name }}
+    <div>
+      <button (click)="handleEdit(group.id)">Edit</button>
+      <button (click)="handleDelete(group.id)">Delete</button>
+    </div>
+    <ul>
+      <li *ngFor="let phrase of group.phrases">
+        {{ phrase.name }}
+      </li>
+    </ul>
+  </li>
+</ul> -->

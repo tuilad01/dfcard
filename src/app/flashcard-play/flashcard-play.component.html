@@ -1,0 +1,76 @@
+<p-dialog
+  header="Select voice"
+  [modal]="true"
+  [(visible)]="isVisibleDialog"
+  [style]="{ width: '25rem' }"
+>
+  <span class="p-text-secondary mb-5 block">Please select the voice</span>
+
+  <p-dropdown
+    appendTo="body"
+    [options]="dropdownVoices"
+    optionLabel="label"
+    optionValue="value"
+    [(ngModel)]="selectedVoice"
+    placeholder="Select the voice"
+    [style]="{ width: '100%' }"
+    (onChange)="selectVoice($event)"
+  />
+</p-dialog>
+
+<h1 *ngIf="!flashcard.id">Not Found</h1>
+
+<div class="mx-4 mb-8 flex justify-between">
+  <p-button
+    icon="pi pi-cog"
+    [rounded]="true"
+    (onClick)="showVoiceSelectionDialog()"
+  ></p-button>
+  <p-button
+    label="next"
+    icon="pi pi-arrow-right"
+    [badge]="state.toString()"
+    (onClick)="next()"
+  ></p-button>
+</div>
+
+<ul id="list-card" class="mx-4 flex flex-col flex-wrap gap-4 sm:flex-row">
+  <ng-container *ngFor="let phrase of phrases">
+    <li *ngIf="!hiddenFlashcards.includes(phrase.id)">
+      <div
+        class="relative flex h-[200px] w-full select-none items-center justify-center rounded-lg bg-[#EF564C] text-xl text-white shadow-lg sm:w-[400px]"
+        [style.display]="
+          !flippedFlashcards.includes(phrase.id) ? 'flex' : 'none'
+        "
+        (click)="flip(phrase.id)"
+        (dblclick)="hide(phrase.id)"
+      >
+        <div class="absolute right-2 top-2">
+          <p-button
+            [icon]="
+              speakingText === phrase.name
+                ? 'pi pi-spin pi-spinner'
+                : 'pi pi-megaphone'
+            "
+            [rounded]="true"
+            severity="warning"
+            (onClick)="speak($event, phrase.name)"
+          ></p-button>
+        </div>
+        <div>
+          {{ phrase.name }}
+        </div>
+      </div>
+      <div
+        class="flex h-[200px] w-full select-none items-center justify-center rounded-lg bg-[#EF564C] text-xl text-white shadow-lg sm:w-[400px]"
+        [style.display]="
+          flippedFlashcards.includes(phrase.id) ? 'flex' : 'none'
+        "
+        (click)="flip(phrase.id)"
+        (dblclick)="hide(phrase.id)"
+      >
+        {{ phrase.meaning }}
+      </div>
+    </li>
+  </ng-container>
+</ul>

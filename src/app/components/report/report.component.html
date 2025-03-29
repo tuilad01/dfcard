@@ -1,0 +1,22 @@
+<div
+  [class]="
+    'w-full overflow-hidden border-b-4 p-4 shadow-lg sm:w-[300px] ' +
+    getBorderBottomColor()
+  "
+>
+  <p class="my-4 text-xl font-bold">{{ name() }}</p>
+  <div>
+    <div class="flex items-center gap-2">
+      <i
+        [class]="
+          percent > 0
+            ? 'pi pi-angle-up'
+            : percent == 0
+              ? 'pi pi-minus'
+              : 'pi pi-angle-down'
+        "
+      ></i>
+      <span class="text-2xl">{{ percent.toFixed(2) }} %</span>
+    </div>
+  </div>
+</div>

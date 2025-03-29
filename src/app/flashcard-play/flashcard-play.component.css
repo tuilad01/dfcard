@@ -1,0 +1,36 @@
+/* :host ::ng-deep .p-button-label {
+  font-size: 1.5rem;
+} */
+#list-card > li:nth-child(9n + 1)>div {
+  @apply bg-blue-400;
+}
+#list-card > li:nth-child(9n + 2)>div {
+  @apply bg-red-400;
+}
+#list-card > li:nth-child(9n + 3)>div {
+  @apply bg-yellow-600;
+}
+#list-card > li:nth-child(9n + 4)>div {
+  @apply bg-gray-400;
+}
+#list-card > li:nth-child(9n + 5)>div {
+  @apply bg-blue-900;
+}
+#list-card > li:nth-child(9n + 6)>div {
+  @apply bg-slate-500;
+}
+#list-card > li:nth-child(9n + 7)>div {
+  @apply bg-red-900;
+}
+#list-card > li:nth-child(9n + 8)>div {
+  @apply bg-yellow-900;
+}
+#list-card > li:nth-child(9n + 9)>div {
+  @apply bg-gray-900;
+}
+/*:host ::ng-deep {*/
+/*  .p-dropdown-items-wrapper {*/
+/*    overflow: hidden;*/
+/*  }*/
+/*}*/
+
