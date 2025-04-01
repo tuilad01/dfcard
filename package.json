@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "^18.0.0",
     "@angular/router": "^18.0.0",
     "@angular/service-worker": "^18.0.0",
+    "@microsoft/signalr": "^8.0.7",
     "chart.js": "^4.4.3",
     "primeicons": "^7.0.0",
     "primeng": "^17.18.2",

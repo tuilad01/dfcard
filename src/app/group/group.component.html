@@ -10,7 +10,10 @@
 </form> -->
 <p-toast />
 <p-confirmPopup />
-
+<!-- <p-button label="Connect" (onClick)="handleConnect()"> -->
+<!-- </p-button> -->
+<!-- <p-button label="Send message" (onClick)="handleSendMessage()"> -->
+<!-- </p-button> -->
 <div class="md:flex md:justify-center">
   <form [formGroup]="form" (submit)="submit($event)" class="md:w-[700px]">
     <app-panel [name]="selectedGroup ? 'Update group' : 'Add group'">

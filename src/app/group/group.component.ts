@@ -20,6 +20,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { v4 as uuid4v } from 'uuid';
+import { ChatService } from '../services/chat.service';
 const defaultGroup: Group = {
   id: '',
   name: '',
@@ -75,6 +76,7 @@ export class GroupComponent implements OnInit {
     private groupService: GroupService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
+    private chatService: ChatService,
   ) {}
 
   ngOnInit(): void {
@@ -192,5 +194,15 @@ export class GroupComponent implements OnInit {
 
   deletePhrase(event: Event, index: number) {
     this.phrases.removeAt(index);
+  }
+  handleConnect() {
+    this.chatService.connect().then(_ => {
+      this.chatService.listen({event: 'ReceiveMessage', handler: (user: string, message: string) => {
+        console.log(user, message)
+      }});
+    });
+  }
+  handleSendMessage() {
+    this.chatService.send({ method: "SendMessage", args: [ "dat", "hello" ] });
   }
 }
